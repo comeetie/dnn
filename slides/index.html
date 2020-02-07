@@ -8,9 +8,9 @@
 @import url(https://fonts.googleapis.com/css?family=Contrail+One:400,700);
 
 </style>
-<link rel="stylesheet" type="text/css" href="../../library/common.css" />
-<link rel="stylesheet" type="text/css" href="../../library/screen.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="../../library/print.css" media="print" />
+<link rel="stylesheet" type="text/css" href="./library/common.css" />
+<link rel="stylesheet" type="text/css" href="./library/screen.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="./library/print.css" media="print" />
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     extensions: ["tex2jax.js"],
@@ -1157,10 +1157,62 @@ Condition = image + Adversarial Auto Encoder
 
 <section style="padding-top:5em ">
 <h1>Self supervised learning</h1>
+$$\{\mathbf{x}_1,...,\mathbf{x}_n\}\rightarrow \{(\mathbf{x}_1,\tilde{y}_1),...,(\mathbf{x}_n,\tilde{y}_n)\}\rightarrow\,f(\mathbf{x})\approx \tilde{y}$$
+</section>
+
+<section>
+<h1>Transfert d'apprentissage</h1>
+<ul>
+<li>Utiliser les première couches d'un réseau entrainé sur une autre tache
+<li>"Finetuning" des dernière couches sur la tâche cible. 
+</ul>
+<img src="./images/transfert.png" width="40%">
 </section>
 
 <section >
+<h1>Self supervised learning</h1>
+<ul>
+<li> Apprendre un réseau avec une tache pretexte </br>
+<span class="red">! (construite sans labels mais supervisé) </span>
+<li>"Finetuning" des dernière couches sur la tâche cible. 
+</ul>
+<img src="./images/pretext_selfsup2.png" height="60%">
+</section>
+
+<section >
+<h1>Self supervised learning</h1>
+<ul>
+<li> Apprendre un réseau avec une tache pretexte </br>
+<span class="red">! (construite sans labels mais supervisé) </span>
+<li>"Finetuning" des dernière couches sur la tâche cible. 
+</ul>
+<img src="./images/colorisation.png" width="60%">
+<h3>Colorisation</h3>
+</section>
+
+<section >
+<h1>Self supervised learning</h1>
+<ul>
+<li> Apprendre un réseau avec une tache pretexte </br>
+<span class="red">! (construite sans labels mais supervisé) </span>
+<li>"Finetuning" des dernière couches sur la tâche cible. 
+</ul>
+<img src="./images/pretext_selfsup.png" height="60%">
+</section>
+<section >
+<h1>Self supervised learning</h1>
+<ul>
+<li> Apprendre un réseau avec une tache pretexte </br>
+<span class="red">! (construite sans labels mais supervisé) </span>
+<li>"Finetuning" des dernière couches sur la tâche cible. 
+</ul>
+<img src="./images/patch.png" height="60%">
+<h3>Patchs spatial configuration</h3>
+</section>
+<section >
 <h1>Texte</h1>
+Tâche pretexte :
+<h3>Mots proche // Mots distants</h3>
 $\Rightarrow$ one-hot encoding, position dans le dictionaire $(0,0,...,1,...,0,0)$
 <h4>Exemple wordEmbeding :</h4> 
 <ul>
@@ -1190,10 +1242,10 @@ $\Rightarrow \mathbf{W}$ position des mots dans l'espace de projection
 
 
 
-<script src="../../library/d3.v3.min.js"></script>
-<script src="../../library/stack.v1.min.js"></script>
-<link rel="stylesheet" href="../../library/styles/hybrid.css">
-<script src="../../library/highlight.pack.js"></script>
+<script src="./library/d3.v3.min.js"></script>
+<script src="./library/stack.v1.min.js"></script>
+<link rel="stylesheet" href="./library/styles/hybrid.css">
+<script src="./library/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
 
