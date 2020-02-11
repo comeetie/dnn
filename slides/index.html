@@ -153,6 +153,15 @@ $f(\mathbf{x})=f(\mathbf{x},\color{red}{\mathbf{w}})$ peut être plus ou moins c
 <span class="red"> ! a ne pas apprendre par coeur les données d'apprentissage
 </section>
 
+
+<section>
+<h1 class="green" >Un peu plus compliqué !</h1>
+<h3> Ensemble d'apprentissage / Ensemble de test</h3>
+$f(\mathbf{x})=f(\mathbf{x},\color{red}{\mathbf{w}})$ peut être plus ou moins compliquée, avoir plus ou moins de degré de liberté.
+<img src="./images/doubledescente.png" height=50%>
+<span class="red"> ! pour certains modèles (type NN)  + SGD, 2 régimes 
+</section>
+
 <section>
 <h1 class="green" >Apprentissage supervisé en pratique</h1>
 <h2 class="red"> Données :</h2>  
@@ -173,7 +182,7 @@ $$\hat{\mathbf{w}}=\arg\min_{\mathbf{w}}\frac{1}{n}\sum_{i=1}^nL(f(\mathbf{x}_i,
 <li> $L$ : fonction de perte
 <li> $\color{green}{\Omega}$ : est un terme de régularisation permettant de controler la capacité du modèle
 <li> $\color{red}{\lambda}$ : hyper-paramètre controlant le degré de régularisation  
-
+</ul>
 
 </section>
 
@@ -482,18 +491,6 @@ $\Rightarrow$  permet de calculer efficacement les sorties de chaques couches
 $\Rightarrow$  permet de calculer efficacement le gradient des poids de chaques couches
 </ul>
 </section>
-<section >
-<h3>Descente de gradient, différentiation automatique</h3>
-<h2 class="red">BP = algorithme de base de la differentiation automatique</h2>
-Vrai changement ! </br> 
-Introduction de libraries de calcul permetant de construire automatiquement les fonctions efficaces de calcul de gradient. 
-<ul>
-<li> Theano
-<li> Torch
-<li> TensorFlow
-<li> ...
-<ul> 
-</section>
 
 <section>
 <h1>Forward, des <span class="red">entrées </span> aux <span class="green">sorties</span></h1>
@@ -561,11 +558,11 @@ $$
 \begin{align}
 \frac{\delta L(\Phi(\mathbf{W}^3\Phi(\mathbf{W}^2\mathbf{s}^1)),y)}{\delta \mathbf{W}^2}&=\color{magenta}{L'(\tilde{y},y)\Phi'(\mathbf{W}^3\Phi(\mathbf{W}^2\mathbf{s}^1))}\color{orange}{(W^3)^{T}\Phi'(\mathbf{W}^2\mathbf{s}^1)}\mathbf{s}^1\\
 &=\color{magenta}{L'(\tilde{y},y)\Phi'(\mathbf{W}^3\mathbf{s}^2)}\color{orange}{(W^3)^{T}\Phi'(\mathbf{W}^2\mathbf{s}^1)}\mathbf{s}^1\\
-&=\color{magenta}{\epsilon^3}\color{orange}{(W^2)^{T}\Phi'(\mathbf{W}^2\mathbf{s}^1)}\mathbf{s}^1\\
+&=\color{magenta}{\epsilon^3}\color{orange}{(W^3)^{T}\Phi'(\mathbf{W}^2\mathbf{s}^1)}\mathbf{s}^1\\
 &=\color{magenta}{\epsilon^2}\mathbf{s}^1
 \end{align}
 $$
-avec $\color{magenta}{\epsilon^2}=\color{magenta}{\epsilon^3}\color{orange}{(W^2)^{T}\Phi'(\mathbf{W}^2\mathbf{s}^1)}$
+avec $\color{magenta}{\epsilon^2}=\color{magenta}{\epsilon^3}\color{orange}{(W^3)^{T}\Phi'(\mathbf{W}^2\mathbf{s}^1)}$
 </section>
 
 
@@ -594,6 +591,21 @@ g^{l}_{i.}&=\color{magenta}{\epsilon^{l}}\mathbf{s}^{l-1}
 $$
 </section>
 
+<section >
+<h3>Descente de gradient, différentiation automatique</h3>
+<h2 class="red">BP = algorithme de base de la differentiation automatique</h2>
+Vrai changement ! </br> 
+Introduction de libraries de calcul permetant de construire automatiquement les fonctions efficaces de calcul de gradient. </br>
+Extension de BP = Reverse mode automatic differentiation
+<ul>
+<li> Theano
+<li> Torch
+<li> TensorFlow
+<li> ...
+<ul> 
+</section>
+
+
 <section>
 <img src="./images/tensorplay.png" width="85%">
 <a href="http://playground.tensorflow.org">http://playground.tensorflow.org</a>
@@ -619,7 +631,7 @@ $$
 <section >
 
 <h1>Apprentissage non supervisé </h1>
-
+	
 <h4 class="green">Auto-encoders</h4>
 <ul>
 <li> Au final codes = projection non linéaire compressant les entrées 
@@ -789,6 +801,22 @@ Pré-entrainement non supervisé
 <h1>Données particulières images, texte, séquences, série temporelle</h1>
 </section>
 
+
+<section>
+<h1>Réseau de neuronnes modernes </h1>
+<h4>Architecture modulaire</h4>
+capable de traiter différents type de données </br>
+<ul>
+<li> Couches denses (MLP) 
+<li> Couche convolution (Images)
+<li> Couche récurrentes (Séquences, temps)
+</ul>
+<h4>Combinaison ?</h4>
+<ul>
+<li> Empilement des couches potentiellement de différentes nature
+<li> Algorithme d'opitmisation générique (Reverse Mode AD // BP)
+</ul>
+</section>
 <section style="padding-top:5em;text-align:center">
 <h1>CNN</h1>
 </section>
@@ -919,7 +947,17 @@ Segmentation d'image : image $\rightarrow$ image
 <h3>Réseau de neuronnes récurrents (RNN)</h3>
 LSTM, GRU :</br>
 <img src="./images/RNN-unrolled.png" width="50%" style="margin-top:1em">
+Une fois déplier // NN classique (poids partagés)
 </section>
+
+
+<section>
+<h1>RNN</h1>
+<img src="images/rnn/architecture-rnn.png" width="50%"></img>
+$$a_t = \Phi(W_{aa}a_{t-1}+W_{ax}x_{t}+b_a)$$
+$$y_t = \Phi(W_{ya}a_{t}+b_y)$$
+</section>
+
 
 <section >
 <h1>RNN</h1>
@@ -927,54 +965,110 @@ LSTM, GRU :</br>
 $$L_t = \sum_{t=1}^{T}L(\tilde{y}_i,y_i)$$
 <h3>Apprentissage</h3>
 <ul>
-<li>BPTT : Back Propagation Throught Time (Même solution)
-<li>! explosion de gradient
-<li>!disparition du gradient
+<li>BPTT : Back Propagation Throught Time 
+<li>Gradient = multiplication </br> 
+$\rightarrow$ décroître/croître de manière exponentiel en fonction du nombre de couches.
+</ul>
+
+</section>
+
+
+<section >
+<h1>RNN</h1>
+<img src="./images/RNN-unrolled.png" width="50%" style="margin-top:1em">
+$$L_t = \sum_{t=1}^{T}L(\tilde{y}_i,y_i)$$
+<h3>Apprentissage</h3>
+<ul>
+<li>BPTT : Back Propagation Throught Time 
+<li>! explosion de gradient (éviter relu)  $g = \frac{th}{||g||}g$
+<li>! disparition du gradient
 </ul>
 </section>
 
-<section>
-<h1>RNN</h1>
-<img src="images/rnn/architecture-rnn.png" width="50%"></img>
-</section>
 
 <section>
-<h1>RNN</h1>
+<h1>RNN, différentes variantes suivant les besoins</h1>
 <img src="images/rnn/rnn-many-to-many-same.png" width="50%"></img>
 </section>
 
 
 <section>
-<h1>RNN</h1>
+<h1>RNN, différentes variantes suivant les besoins</h1>
 <img src="images/rnn/rnn-many-to-one.png" width="50%"></img>
+Ex: classification de sequences de taille variable (sentiment analysis)
 </section>
 
 
 <section>
-<h1>RNN</h1>
+<h1>RNN, différentes variantes suivant les besoins</h1>
 <img src="images/rnn/rnn-one-to-many.png" width="50%"></img>
+Ex : génération de musique 
 </section>
 
 
 <section>
-<h1>RNN</h1>
+<h1>RNN, différentes variantes suivant les besoins</h1>
 <img src="images/rnn/rnn-many-to-many-different.png" width="50%"></img>
+Ex : traduction automatique, génération de sous-titre pour des images (image captionning)
 </section>
 
 <section>
 <h1>RNN, LSTM</h1>
-<img src="images/rnn/rnn-portes.jpg" width="50%"></img>
+<h2>Mémoire explicite</h2>
+<ul>
+<li>meilleure prise en compte des dépendances long termes
+<li>séparation de la couche cachée temporelle en 2 partie $[c_t,a_t]$
+<li>$\rightarrow$ permettre a l'information de remonter le temps plus facilement 
+</ul>
+<img src="images/rnn/lstm.png" width="50%"></img>
+<a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/"> https://colah.github.io/posts/2015-08-Understanding-LSTMs/</a>
+</section>
+
+
+<section>
+<h1>RNN, LSTM</h1>
+<ul>
+<li>introduction de porte pour gérer les deux partie 
+$$\Gamma_*(a_t,x_t)=\sigma(\mathbf{w}a_t+\mathbf{u}x_t+b)$$
+<li>$\Gamma_f$ porte de facteur d'oublie
+<li>$\Gamma_u$,$\Gamma_r$ porte de mise a jour 
+<li>$\Gamma_o$ porte de sortie 
+</ul>
+<img src="images/rnn/lstm.png" width="50%"></img>
+<a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/"> https://colah.github.io/posts/2015-08-Understanding-LSTMs/</a>
 </section>
 
 <section>
 <h1>LSTM</h1>
-<img src="images/rnn/lstm.png" width="50%"></img>
+<h2>Oublier </h2>
+
+<img src="images/rnn/LSTM_detail_forget.png" width="50%"></img>
+</section>
+
+<section>
+<h1>LSTM</h1>
+<h2>Extraire ce qui est pertinent de la nouvelle données</h2>
+<img src="images/rnn/LSTM_detail_add.png" width="50%"></img>
 </section>
 
 
 <section>
+<h1>LSTM</h1>
+<h2>Mettre a jour</h2>
+<img src="images/rnn/LSTM3_detail_add2.png" width="50%"></img>
+</section>
+
+
+<section>
+<h1>LSTM</h1>
+<h2>Construire la sortie</h2>
+<img src="images/rnn/LSTM_detail_out.png" width="50%"></img>
+</section>
+
+<section>
 <h1>GRU</h1>
 <img src="images/rnn/gru.png" width="50%"></img>
+simplification, combiner facteur d'oublie et de mise a jour
 </section>
 
 
