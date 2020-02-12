@@ -460,7 +460,7 @@ $$\frac{1}{\color{green}{n_b}}\sum_{i \in \color{green}{\mathbb{B}_j}} L(G(\math
 $$
 \begin{align}
 \mathbf{z}_{n+1} &= \beta \mathbf{z}_{n} + \frac{\delta L(\mathbf{w})}{\delta \mathbf{w}}\nonumber\\
-\mathbf{w}_{n+1} &= \mathbf{w}_{n+1} -\lambda \mathbf{z}_{n+1}\nonumber
+\mathbf{w}_{n+1} &= \mathbf{w}_{n} -\lambda \mathbf{z}_{n+1}\nonumber
 \end{align}
 $$
 Pour plus d'information
@@ -653,17 +653,23 @@ Extension de BP = Reverse mode automatic differentiation
 <h1>Keras</h1>
 Libraririe de haut niveau pour définir et apprendre les paramètres d'un réseau </br>
 //Interface Séquentielle
-<pre><code class="python">from keras.layers import Input, Dense
-from keras.models import model
-
-Sequential = Sequential()
-model.add(Dense(64, activation='relu', input_dim=784))
-model.add(Dense(64, activation='relu'))
+<pre><code class="python">model = Sequential()
+model.add(Dense(32, activation='relu', input_dim=100))
 model.add(Dense(10, activation='softmax'))
+model.compile(optimizer='rmsprop',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
 
-model = Model(inputs=inputs, outputs=predictions)
-model.compile(optimizer='rmsprop',loss='categorical_crossentropy')
-model.fit(data, labels)  # starts training
+# Generate dummy data
+import numpy as np
+data = np.random.random((1000, 100))
+labels = np.random.randint(10, size=(1000, 1))
+
+# Convert labels to categorical one-hot encoding
+one_hot_labels = keras.utils.to_categorical(labels, num_classes=10)
+
+# Train the model, iterating on the data in batches of 32 samples
+model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 </pre></code>
 </section>
 
@@ -1057,7 +1063,7 @@ $$\Gamma_*(a_t,x_t)=\sigma(\mathbf{w}a_t+\mathbf{u}x_t+b)$$
 <h2>Mettre a jour</h2>
 <img src="images/rnn/LSTM3_detail_add2.png" width="50%"></img>
 </section>
-
+-
 
 <section>
 <h1>LSTM</h1>
