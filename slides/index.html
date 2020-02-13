@@ -712,14 +712,14 @@ model.fit(data, labels)  # starts training
 
 <h1>Eviter le sur-apprentissage</h1>
 <ul>
-<li>Réseau de neuronnes, approximateur universelle, capacité forte
+<li>Réseau de neuronnes, approximateur universel, capacité forte
 <li>Nécessaire d'éviter le sur-apprentissage
 </ul></br>
 Différentes méthodes, ex :
 <ul>
 <li> <span class="red">Régularisation</span> : $\sum_{i=1}^NL(G(\mathbf{x}_i,\mathbf{w}),y_i)+\color{green}{\beta\sum_{k=1}^M|w_k|}$
 <li> Perturbation   : couche de <span class="red">drop-out</span> </br>(mise a 0 aléatoire de certaine valeurs)
-<li> <span class="red">Early-stopping</span> : arrêt de l'optimisation avant convergence complète (en surveillant les )
+<li> <span class="red">Early-stopping</span> : arrêt de l'optimisation avant convergence complète (en surveillant l'erreur de validation)
 </section>
 
 
@@ -763,6 +763,19 @@ $$
 <h2 class="green">Relu</h2>
 <img src="./images/Activation_rectified_linear.svg" height="30%">
 <h2> + de gradient </h2>
+</section>
+
+
+<section>
+<h1>Régularisation, ajout de bruit</h1>
+<span class="red">Drop out</span>
+<ul>
+<li> Durant l'apprentissage, déconnecter aléatoirement à chaque itération des poids avec une probabilité $p$.
+<li> Au moment du test, multiplier les poids par leurs fréquence de déconnexion observée 
+</ul>
+<img src="./images/drop_out1.png" width="30%">
+<span class="small">Hinton, G. E., Srivastava, N., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. R. (2012). Improving neural networks by preventing co-adaptation of
+feature detectors. arXiv:1207.0580.</span>
 </section>
 
 
