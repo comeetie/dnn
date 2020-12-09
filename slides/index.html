@@ -1116,7 +1116,7 @@ simplification, combiner facteur d'oublie et de mise a jour
 
 <section>
 <h1>Generateur</h1>
-Générer à parir a partir d'un vecteur de petite dimension $z$ un point $\tilde{x}$ dans un espace de grande dimension (ex: image)
+Générer à parir d'un vecteur de petite dimension $z$ un point $\tilde{x}$ dans un espace de grande dimension (ex: image)
 <img src="./images/gan/generator.png" width="50%"></img>
 </section>
 
@@ -1233,10 +1233,7 @@ Exemple de sorties
 $$L = L_{adv} + L_{rec}$$
 <span class="small">Makhzani et al. “Adversarial Autoencoders”. 2015</span>
 </section>
-<section>
-<h1>Flipped Adversarial Auto Encoder</h1>
-<img src="./images/gan/faae.jpg" width="50%"></img>
-</section>
+
 
 
 <section>
@@ -1325,15 +1322,74 @@ $$\{\mathbf{x}_1,...,\mathbf{x}_n\}\rightarrow \{(\mathbf{x}_1,\tilde{y}_1),...,
 <img src="./images/patch.png" height="60%">
 <h3>Patchs spatial configuration</h3>
 </section>
+
+
+
 <section >
-<h1>Texte</h1>
-Tâche pretexte :
-<h3>Mots proche // Mots distants</h3>
+<h1>Texte, WordEmbedding</h1>
+<img src="./images/wordembedding.png" height="75%" style="margin-top:1em">
+</section>
+
+<section>
+ WordEmbedding>
+<h1>Texte, WordEmbedding</h1>
+Prédire le prochain mots
+
+<img src="./images/nn_language_model-1.jpg" height="55%" style="margin-top:1em">
+Bengio, Y., Ducharme, R., Vincent, P., & Janvin, C. (2003). A Neural Probabilistic Language Model. The Journal of Machine Learning Research, 3, 1137–1155. Retrieved from http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf ↩︎
+</section>
+
+<section>
+<h1>Texte, WordEmbedding</h1>
+Prédire le prochain mots:
+
+<ul>
+<li> <b>Embedding Layer</b>: produit le word embeding index vector . word embeding matrix</br>
+<li> <b>Intermediate Layer(s)</b>: consrtuction de représentation inetrmédiaires, e.g. a couches denses prenant en entrée la concatenation des embeddings des mots précedents;</br>
+<li> <b>Softmax Layer</b>: couche de décision produit une probabilité sur le vocabulaire V</br>
+</ul>
+</section>
+
+
+
+
+<section>
+<h1>Texte, WordEmbedding, CBOW</h1>
+Prédire un mot a partir de son contexte:
+
+<img src="./images/cbow.png" height="55%" style="margin-top:1em">
+Mikolov, T., Corrado, G., Chen, K., & Dean, J. (2013). Efficient Estimation of Word Representations in Vector Space. Proceedings of the International Conference on Learning Representations (ICLR 2013), 1–12. ↩︎
+
+</section>
+
+<section>
+<h1>Texte, WordEmbedding, CBOW</h1>
+Prédire un mot a partir de son contexte:
+<ul>
+<li> <b>Embedding Layer</b>:: produit le word embeding index vector . word embeding matrix;
+<li> <b>Intermediate Layer(s)</b>: une simple moyenne des embeddings du contexte 
+<li> <b>Softmax Layer</b>: couche de décision produit une probabilité sur le vocabulaire V
+</ul>
+</section>
+
+<section>
+<h1>Texte, WordEmbedding, CBOW</h1>
+D'un point de vue computationel la dernière couche de soft-max coute cher (|V| est grand)
+$$p(w|c)=\frac{\exp(h^{t}v_{w})}{\sum_{w_i\in V}\exp(h^{t}v_{w_{i}})}$$
+Idée modifier le problème 
+-> liens "Contrastive learning" / reformuler la loss sur des paires
+</section>
+
+
+</section>
+<section>
+<h1>Texte CBOW + Negative sampling</h1>
+<h3>Tâche pretexte : Mots proche // Mots distants</h3>
 $\Rightarrow$ one-hot encoding, position dans le dictionaire $(0,0,...,1,...,0,0)$
 <h4>Exemple wordEmbeding :</h4> 
 <ul>
-<li> $\mathbf{z}_1 = \mathbf{x}_1^t\mathbf{W}$
-<li> $\mathbf{z}_2 = \mathbf{x}_2^t\mathbf{W}$
+<li> $\mathbf{z}_1 = \mathbf{x}_1^t\mathbf{V}$
+<li> $\mathbf{z}_2 = \mathbf{x}_2^t\mathbf{V}$
 <li> $s = \frac{\mathbf{z}_1^t\mathbf{z}_2}{||\mathbf{z}_1||||\mathbf{z}_2||}$
 <li> $y = sigmoid(s)$
 </ul>
@@ -1343,13 +1399,28 @@ $\Rightarrow$ one-hot encoding, position dans le dictionaire $(0,0,...,1,...,0,0
 <li>couples de mots $(\mathbf{x}_1,\mathbf{x}_2)$ présent dans la même fenêtre ($y=1$)
 <li>couples de mots $(\mathbf{x}_1,\mathbf{x}_2)$ aléatoires ($y=0$)
 </ul>
-$\Rightarrow \mathbf{W}$ position des mots dans l'espace de projection  
+$\Rightarrow \mathbf{V}$ position des mots dans l'espace de projection  
 </section>
 
-<section >
-<h1>Texte, WordEmbedding</h1>
-<img src="./images/wordembedding.png" height="75%" style="margin-top:1em">
 
+<section>
+<h1>Texte CBOW + Negative sampling</h1>
+Tâche pretexte :
+<h3>Tâche pretexte : Mots proche // Mots distants</h3>
+<h4>Construction du jeu de données d'apprentissage :</h4>
+<ul>
+<li>couples de mots $(\mathbf{x}_1,\mathbf{x}_2)$ présent dans la même fenêtre ($y=1$)
+<li>couples de mots $(\mathbf{x}_1,\mathbf{x}_2)$ aléatoires ($y=0$)
+</ul>
+$\Rightarrow \mathbf{W}$ position des mots dans l'espace de projection  
+<h4>Construction des exemples</h4>
+<ul>
+<li> Nombre d'exemple négatif / exemple positif <i>(nb_neg)</i>
+<li> Tirage des mots négatif (distribution empirique lissée, $\alpha$) 
+$$ps_{w_i}^\alpha= \frac{\#w_i^{\alpha}}{\sum_j\#w_j^\alpha}$$
+<li> Sous-échantillonage des mots fréquents ($t$)
+$$ pr_{w_i} = 1 -\sqrt(\frac{t}{ps_{w_i}^1})$$
+</ul>
 </section>
 
 
